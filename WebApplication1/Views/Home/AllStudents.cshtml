@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "AllEmployees";
+}
+
+<h4>All Students (Inner Join)</h4>
+@*Displaying students through inner join*@
+@foreach (var student in ViewData["Students"] as IList<WebApplication1.Models.StudentViewModel>)
+{
+    <p>@student.Name, @student.BatchName</p>
+}
+
+<h4>All Students (Left Outer Join)</h4>
+@*Displaying students through left outer join*@
+@foreach (var student in ViewData["LeftOuteredStudents"] as IList<WebApplication1.Models.StudentViewModel>)
+{
+    <p>@student.Name, @student.BatchName</p>
+    //link to edit student by passing student id
+    @Html.ActionLink("Edit", "EditStudent", "Home", new { id = student.Id }, null);
+}
+<h4>All Batches (Group Join)</h4>
+@*Displaying students in each batch through group join*@
+@foreach (var item in ViewData["GroupStudents"] as IList<WebApplication1.Models.BatchViewModel>)
+{
+    <h5><b>@item.batch</b></h5>
+    @foreach(var student in item.student as IList<WebApplication1.Models.Student>)
+    {
+        <p>@student.studentName</p>
+    }
+}

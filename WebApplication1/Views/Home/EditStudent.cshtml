@@ -1,0 +1,43 @@
+﻿
+@model WebApplication1.Models.Student
+
+<div class="container-fluid">
+    <form class="col-md-12" name="my-form" asp-controller="Home" asp-action="AddNewStudent">
+        @Html.TextBoxFor(model => model.studentId,new { @class = "form-control", @placeholder = ViewBag.id} )
+        @*Add student Name*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            <label for="full_name" class="col-md-12 col-form-label text-md-right">Full Name</label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.studentName, new { htmlAttributes = new { @class = "form-control", @placeholder = ViewBag.studentName } })
+                @*Display validation messages if any*@
+                @Html.ValidationMessageFor(m => m.studentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*Select batch*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            <label for="batch" class="col-md-12 col-form-label text-md-right">Batch</label>
+            <div class="col-md-12">
+                @*Store all batch in list*@
+                @{
+                    List<WebApplication1.Models.Batch> list = ViewBag.Batches;
+                    var items = new SelectList(list, "batchId", "batchName", selectedValue: ViewBag.batch);
+                }
+                @*Display batch as dropdown list*@
+                @Html.DropDownListFor(x => x.batchId, @items, "Nil", new { htmlAttributes = new { @class = "form-control" } })
+                @*Display validation messages if any*@
+                @Html.ValidationMessageFor(x => x.batchId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-6 offset-md-4">
+            <button type="submit" class="btn btn-primary">
+                Register
+            </button>
+        </div>
+    </form>
+</div>
+
+

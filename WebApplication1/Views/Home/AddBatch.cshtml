@@ -1,0 +1,27 @@
+﻿
+@model WebApplication1.Models.Batch
+
+<div class="container-fluid">
+    <h4>Add New Batch</h4>
+    <form class="col-md-12" name="my-form" asp-controller="Home" asp-action="AddNewBatch">
+
+        @*Add new batch*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            <label for="full_name" class="col-md-12 col-form-label text-md-right">Full Name</label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.batchName, new { htmlAttributes = new { @class = "form-control" } })
+                @*Display validation messages if any*@
+                @Html.ValidationMessageFor(m => m.batchName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">
+                Add
+            </button>
+        </div>
+    </form>
+</div>
+
+
